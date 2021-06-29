@@ -327,7 +327,7 @@ class Rendition {
 			target = this.book.locations.cfiFromPercentage(parseFloat(target));
 		}
 
-		section = this.book.spine.get(target) || this.book.spine.get('Text/' + target);
+		section = this.book.spine.get(target) || this.book.spine.get('Text/' + target) || this.book.spine.get('text/' + target);
 
 		if(!section){
 			displaying.reject(new Error("No Section Found"));
