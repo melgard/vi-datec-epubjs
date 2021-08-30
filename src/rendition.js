@@ -327,7 +327,29 @@ class Rendition {
 			target = this.book.locations.cfiFromPercentage(parseFloat(target));
 		}
 
-		section = this.book.spine.get(target) || this.book.spine.get('Text/' + target) || this.book.spine.get('text/' + target);
+		if (target.includes("#epubcfi")) {
+			target = target.replace("#epubcfi", "epubcfi");
+		}
+	
+		if (target.includes("epubcfi")) {
+			let result;
+			section = this.book.spine.spineItems.find(item => {
+				result = target.match(/\.*?\/.*?\/\d+/)[0];
+				return item.cfiBase.includes(result);
+			});
+	
+			if (!section) {
+				section = this.book.spine.spineItems[0];
+			} else {
+				if (!target.includes(section.cfiBase)) {
+					target = target.replace(result, section.cfiBase);
+				}
+				section = this.book.spine.get(target);
+			}
+		} else {
+			section = this.book.spine.spineItems[this.book.spine.spineByHref[target]];
+		}
+	
 
 		if(!section){
 			displaying.reject(new Error("No Section Found"));
