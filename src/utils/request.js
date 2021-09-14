@@ -105,8 +105,10 @@ function request(url, type, withCredentials, headers) {
 					});
 					return deferred.promise;
 				}
-
-				var bytes  = crypto.AES.decrypt(this.response, 'RWxDaG9yaXpvRW5MYUN1ZXZhMTIz');
+					
+				const response = Buffer.from(this.response, 'base64').toString();
+				
+				var bytes  = crypto.AES.decrypt(response, 'RWxDaG9yaXpvRW5MYUN1ZXZhMTIz');
 				var desencriptado = bytes.toString(crypto.enc.Utf8);
 
 				if (this.status === 403) {
