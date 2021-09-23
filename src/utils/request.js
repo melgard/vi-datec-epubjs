@@ -4,7 +4,7 @@ require("core-js/modules/web.dom-collections.iterator");
 
 require("core-js/modules/web.url");
 
-var crypto = require('crypto-js');
+var crypto = require('crypto');
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
@@ -108,8 +108,9 @@ function request(url, type, withCredentials, headers) {
 					
 				//const response = Buffer.from(this.response, 'base64').toString();
 				
-				var bytes  = crypto.AES.decrypt(this.response, 'RWxDaG9yaXpvRW5MYUN1ZXZhMTIz');
-				var desencriptado = bytes.toString(crypto.enc.Utf8);
+				var decipher 			= crypto.createDecipher('aes-256-ctr','RWxDaG9yaXpvRW5MYUN1ZXZhMTIz');
+				var desencriptado = decipher.update(this.response,'hex','utf8')
+				desencriptado += decipher.final('utf8');
 
 				if (this.status === 403) {
 					deferred.reject({
