@@ -60,7 +60,7 @@ function request(url, type, withCredentials, headers) {
 		xhr.responseType = BLOB_RESPONSE;
 	}
 
-  	xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('local_jwt'));
+  	xhr.setRequestHeader('x-authorization', localStorage.getItem('local_jwt'));
 
 	if ((0, _core.isXml)(type)) {
 		// xhr.responseType = "document";
