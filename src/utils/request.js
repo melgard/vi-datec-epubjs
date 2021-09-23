@@ -60,7 +60,7 @@ function request(url, type, withCredentials, headers) {
 		xhr.responseType = BLOB_RESPONSE;
 	}
 
-  	xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('local_jwt'));
+  	xhr.setRequestHeader('x-authorization', localStorage.getItem('local_jwt'));
 
 	if ((0, _core.isXml)(type)) {
 		// xhr.responseType = "document";
@@ -106,9 +106,9 @@ function request(url, type, withCredentials, headers) {
 					return deferred.promise;
 				}
 					
-				const response = Buffer.from(this.response, 'base64').toString();
+				//const response = Buffer.from(this.response, 'base64').toString();
 				
-				var bytes  = crypto.AES.decrypt(response, 'RWxDaG9yaXpvRW5MYUN1ZXZhMTIz');
+				var bytes  = crypto.AES.decrypt(this.response, 'RWxDaG9yaXpvRW5MYUN1ZXZhMTIz');
 				var desencriptado = bytes.toString(crypto.enc.Utf8);
 
 				if (this.status === 403) {
