@@ -348,8 +348,19 @@ class Rendition {
 			}
 		} else {
 			section = this.book.spine.spineItems[this.book.spine.spineByHref[target]];
+			// If no section is found, retry the search with a partial match
+ 			if (!section)  {
+        			const arrayKeys = Object.entries(this.book.spine.spineByHref);
+				arrayKeys.map(element => {
+					if(target.includes(element[0])) {
+						section = this.book.spine.spineItems[this.book.spine.spineByHref[element[0]]];
+					}
+				});
+			}
 		}
-	
+		
+		if (!section) section =  this.book.spine.spineItems[0];
+
 
 		if(!section){
 			displaying.reject(new Error("No Section Found"));
