@@ -9,7 +9,6 @@ require("core-js/modules/web.dom-collections.iterator");
 require("core-js/modules/web.url");
 
 var crypto = require('crypto');
-var cryptoJS = require('crypto-js');
 
 var cryptoJS = require('crypto-js');
 
