@@ -59,7 +59,8 @@ function request(url, type, withCredentials, headers) {
  
   if(findUrl) {
     const encUrl = cryptoJS.AES.encrypt( url.split(findUrl)[1], 'RWxDaG9yaXpvRW5MYUN1ZXZhMTIz').toString();
-    newUrl = `${findUrl}${encUrl}`
+    const newEncUrl = encUrl.replace(/\//g, "*");
+    newUrl = `${findUrl}${newEncUrl}`
   }
 
   xhr.open("GET", newUrl || url, true);
